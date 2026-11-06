@@ -338,7 +338,7 @@ export default function SelectPageComponent({ shoes }: SelectPageProps) {
 
                   {/* Product Info */}
                   <div className="p-2">
-                    <h3 className="font-semibold text-xs mb-1 truncate">{shoe.productName}</h3>
+                    <h3 className="font-semibold text-xs mb-1 truncate">MagShoppy</h3>
                     <div className="flex justify-between items-center">
                       <p className="text-gray-600 text-xs">${shoe.price}</p>
                       {isSelected && (

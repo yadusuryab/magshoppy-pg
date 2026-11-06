@@ -130,7 +130,7 @@ export default function AddToCartButton({
       {isInCart ? (
         <Button
           variant="secondary"
-          className="w-full"
+ className="w-full text-lg font-bold"          size={'lg'}
           onClick={() => router.push("/checkout")}
         >
           {iconOnly ? (
@@ -144,8 +144,7 @@ export default function AddToCartButton({
       ) : (
         <Button
           onClick={handleAddToCart}
-          className="w-full"
-          size={iconOnly ? "icon" : undefined}
+ className="w-full text-lg font-bold"          size={iconOnly ? "icon" : "lg"}
         >
           {iconOnly ? (
             <ShoppingBag />
@@ -219,7 +218,7 @@ export default function AddToCartButton({
           {selectedFreeProduct && (
             <>
               <Label className="mt-4">
-                Select Size for {selectedFreeProduct.productName}&nbsp;
+                Select Size for MagShoppy Sneaker&nbsp;
                 <Badge variant={"secondary"}>Free Product</Badge>
               </Label>
               <div className="flex gap-2">

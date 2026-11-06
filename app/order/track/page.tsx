@@ -155,7 +155,7 @@ function buildWhatsAppLink(order: Order) {
     .map((it, i) => {
       const url = productUrl(it);
       return [
-        `Pair ${i + 1}: ${it.productName}${it.size ? ` (Size ${it.size})` : ""}${
+        `Pair ${i + 1}: ${it.size ? ` (Size ${it.size})` : ""}${
           it.isFreeItem ? " - FREE" : ` - ₹${it.price}`
         }`,
         url,
@@ -502,10 +502,10 @@ function TrackOrderContent() {
                                     href={productPath(item)!}
                                     className="hover:underline focus-visible:underline"
                                   >
-                                    {item.productName}
+                                    {'MagShoppy'}
                                   </a>
                                 ) : (
-                                  item.productName
+                                  'MagShoppy'
                                 )}
                                 {item.isFreeItem && (
                                   <span className="ml-1.5 rounded-md bg-amber-400/15 px-1.5 py-0.5 text-[10px] font-semibold text-amber-300">

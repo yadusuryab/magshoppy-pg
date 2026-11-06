@@ -80,7 +80,7 @@ export default function ProductCard({
 
       {/* Overlay for Product Details */}
       <div className="absolute border top-2 left-2 right-2 rounded-md p-4 bg-background">
-        <h2 className="text-lg font-semibold">{productName.toUpperCase()}</h2>
+        {/* <h2 className="text-lg font-semibold">{productName.toUpperCase()}</h2> */}
 
         {/* Available Sizes */}
         <p className="text-xs text-muted-foreground">

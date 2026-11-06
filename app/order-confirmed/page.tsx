@@ -155,7 +155,7 @@ function OrderConfirmedContent() {
             {order.items.map((item, i) => (
               <div key={i} className="flex justify-between text-sm">
                 <span>
-                  {item.productName} (Size {item.size}){" "}
+                  {'MagShoppy'} (Size {item.size}){" "}
                   {item.isFreeItem && <span className="text-green-600 font-medium">FREE</span>}
                 </span>
                 <span>₹{item.isFreeItem ? 0 : item.price}</span>

@@ -30,10 +30,10 @@ export async function generateMetadata({ params }: ProductProps): Promise<Metada
   }
 
   const { productName, price } = product;
-  const ogDescription = `${productName} - ₹${price.toLocaleString()}. Buy now!`;
+  const ogDescription = `MagShoppy - ₹${price.toLocaleString()}. Buy now!`;
 
   return {
-    title: `${productName} - ${site.name}`,
+    title: `MagShoppy - ${site.name}`,
     description: ogDescription,
     openGraph: {
       title: productName,
@@ -67,7 +67,7 @@ export default async function ProductPage({ params }: ProductProps) {
   } = product;
 
   // Optimized WhatsApp message - minimal content
-  const message = `Hi, I want ${productName} (${category}). Size? ${process.env.NEXT_PUBLIC_BASE_URL}/p/${resolvedParams.id}`;
+  const message = `Hi, I want MagShoppy (${category}). Size? ${process.env.NEXT_PUBLIC_BASE_URL}/p/${resolvedParams.id}`;
 
   return (
     <div className="md:mx-28 mx-4">
@@ -86,16 +86,16 @@ export default async function ProductPage({ params }: ProductProps) {
             <p className="uppercase text-sm font-semibold text-muted-foreground">
               {shoeBrand || site.name}
             </p>
-            <h1 className="text-xl md:text-2xl font-bold uppercase">{productName}</h1>
+            <h1 className="text-xl md:text-2xl font-bold tracking-tighter uppercase">MAGSHOPPY SNEAKERS</h1>
           </div>
 
           {/* Badges */}
-          <div className="flex flex-wrap gap-2 items-center">
+          {/* <div className="flex flex-wrap gap-2 items-center">
             <Badge className="rounded-md text-xs">{category?.toUpperCase()}</Badge>
             <Badge className="rounded-md text-xs" variant={'secondary'}>
-              Sizes: {sizes?.slice(0, 3).join(", ")}{sizes?.length > 3 ? "..." : ""}
+              Sizes: {sizes?.join(", ")}
             </Badge>
-          </div>
+          </div> */}
 
           {/* Optimized Price Section */}
           <div>
@@ -115,30 +115,31 @@ export default async function ProductPage({ params }: ProductProps) {
           </div>
 
           {/* BOGO Badge - Simple */}
-          {buyOneGetOne && (
+          {/* {buyOneGetOne && (
             <Badge variant="default" className="bg-green-600 text-white">
               🎁 Buy 1 Get 1 Free
             </Badge>
-          )}
+          )} */}
 
           {/* Action Buttons */}
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 gap-3">
             <Link 
-              href={`tel:${site.phone}`} 
+              href={`https://wa.me/${site.phone}?text="Hi magshoppy"`} 
               className="block"
+              target="_blank"
               prefetch={false}
             >
-              <Button className="w-full" variant="outline" size="lg">
-                <PhoneCall className="h-4 w-4 mr-2" />
-                Call
+              <Button className="w-full text-lg font-bold" variant="outline" size="lg">
+                <MessageCircle />
+                Whatsapp
               </Button>
             </Link>
             
-            <AddToCartButton product={product} />
+            {/* <AddToCartButton product={product} /> */}
           </div>
 
           {/* Additional Details - Collapsible would be better */}
-          <div className="space-y-4 text-sm">
+          {/* <div className="space-y-4 text-sm">
             <div>
               <SHeading 
                 title="Product Details" 
@@ -150,14 +151,13 @@ export default async function ProductPage({ params }: ProductProps) {
               </p>
             </div>
 
-            {/* Simplified details grid */}
             <div className="grid grid-cols-2 gap-4">
               <DetailItem label="Brand" value={shoeBrand} />
               <DetailItem label="Made In" value={madeIn} />
               <DetailItem label="Sizes" value={sizes?.join(", ")} />
               <DetailItem label="Colors" value={colorVariants?.join(", ")} />
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
