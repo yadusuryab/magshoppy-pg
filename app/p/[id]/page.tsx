@@ -83,9 +83,9 @@ export default async function ProductPage({ params }: ProductProps) {
         <div className="space-y-4">
           {/* Product Header */}
           <div>
-            <p className="uppercase text-sm font-semibold text-muted-foreground">
+            {/* <p className="uppercase text-sm font-semibold text-muted-foreground">
               {shoeBrand || site.name}
-            </p>
+            </p> */}
             <h1 className="text-xl md:text-2xl font-bold tracking-tighter uppercase">MAGSHOPPY SNEAKERS</h1>
           </div>
 
