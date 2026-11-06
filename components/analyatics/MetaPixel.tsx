@@ -2,7 +2,7 @@
 
 import Script from "next/script";
 
-const PIXEL_ID = "1732582114635401";
+const PIXEL_ID = "";
 
 declare global {
   interface Window {
