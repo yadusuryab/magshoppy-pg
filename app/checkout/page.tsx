@@ -367,7 +367,7 @@ ${isCod ? `- Advance attempted: ₹${COD_ADVANCE_AMOUNT}\n` : ""}
         key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
         amount: razorpayOrder.amount,
         currency: razorpayOrder.currency,
-        name: site.name || "Footex",
+        name: site.name || "MagShoppy",
         description: isCod
           ? `COD Advance Payment (₹${COD_ADVANCE_AMOUNT})`
           : isOnePair

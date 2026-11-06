@@ -6,10 +6,10 @@ export default function CookiesPolicy() {
   return (
     <>
       <Head>
-        <title>Cookies Policy - footex</title>
+        <title>Cookies Policy - MagShoppy</title>
         <meta
           name="description"
-          content="Learn how footex uses cookies to enhance your browsing experience."
+          content="Learn how MagShoppy uses cookies to enhance your browsing experience."
         />
       </Head>
       <div className="container mx-auto p-6">
@@ -32,7 +32,7 @@ export default function CookiesPolicy() {
         <h3 className="text-xl font-semibold mt-4">Definitions</h3>
         <ul className="list-disc ml-6">
           <li>
-            <strong>Company:</strong> Refers to footex ("the Company", "We",
+            <strong>Company:</strong> Refers to MagShoppy ("the Company", "We",
             "Us", or "Our").
           </li>
           <li>
@@ -40,7 +40,7 @@ export default function CookiesPolicy() {
             containing browsing history details among other uses.
           </li>
           <li>
-            <strong>Website:</strong> Refers to footex, accessible from
+            <strong>Website:</strong> Refers to MagShoppy, accessible from
             <a
               href="https://magshoppy.in"
               target="_blank"

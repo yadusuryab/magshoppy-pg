@@ -29,14 +29,14 @@ export const PaymentMethod = ({
 }: PaymentMethodProps) => {
   const [transactionId, setTransactionId] = useState("");
   const [showQR, setShowQR] = useState(false);
-  
+
   // Replace with your actual UPI ID
   const upiId = "shoeshubkerala@axl";
   const codAdvanceAmount = 300; // Fixed COD advance amount
 
   // Generate UPI payment link with amount
   const generateUpiLink = (amount: number) => {
-    return `upi://pay?pa=${upiId}&pn=footex&am=${amount}&cu=INR&tn=Payment for order`;
+    return `upi://pay?pa=${upiId}&pn=MagShoppy&am=${amount}&cu=INR&tn=Payment for order`;
   };
 
   // Open UPI app with prefilled amount
@@ -51,9 +51,12 @@ export const PaymentMethod = ({
           <SelectValue placeholder="Select payment method" />
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value="upi">UPI Payment (Full Amount: ₹{totalAmount})</SelectItem>
+          <SelectItem value="upi">
+            UPI Payment (Full Amount: ₹{totalAmount})
+          </SelectItem>
           <SelectItem value="cod">
-            Cash on Delivery (₹{codAdvanceAmount} Advance + ₹{totalAmount - codAdvanceAmount} on Delivery)
+            Cash on Delivery (₹{codAdvanceAmount} Advance + ₹
+            {totalAmount - codAdvanceAmount} on Delivery)
           </SelectItem>
         </SelectContent>
       </Select>
@@ -61,15 +64,15 @@ export const PaymentMethod = ({
       {paymentMethod === "upi" ? (
         <div className="space-y-4">
           <div className="flex gap-2">
-            <Button 
-              variant="outline" 
+            <Button
+              variant="outline"
               className="w-full"
               onClick={() => setShowQR(!showQR)}
             >
               {showQR ? "Hide UPI QR Code" : "Show UPI QR Code"}
             </Button>
-            <Button 
-              variant="outline" 
+            <Button
+              variant="outline"
               className="w-full"
               onClick={() => openUpiApp(totalAmount)}
             >
@@ -83,16 +86,14 @@ export const PaymentMethod = ({
                 Scan to pay ₹{totalAmount}
               </div>
               <div className="p-2 border rounded">
-                <QRCodeCanvas 
+                <QRCodeCanvas
                   value={generateUpiLink(totalAmount)}
                   size={200}
                   level="H"
                   includeMargin={true}
                 />
               </div>
-              <div className="mt-2 text-sm text-gray-500">
-                UPI ID: {upiId}
-              </div>
+              <div className="mt-2 text-sm text-gray-500">UPI ID: {upiId}</div>
             </div>
           )}
 
@@ -113,18 +114,19 @@ export const PaymentMethod = ({
             ₹{codAdvanceAmount} will be collected upfront via UPI
           </p>
           <p className="text-sm text-gray-500 mt-1">
-            Remaining ₹{totalAmount - codAdvanceAmount} will be paid in cash on delivery
+            Remaining ₹{totalAmount - codAdvanceAmount} will be paid in cash on
+            delivery
           </p>
           <div className="flex gap-2 mt-4">
-            <Button 
-              variant="outline" 
+            <Button
+              variant="outline"
               className="w-full"
               onClick={() => setShowQR(!showQR)}
             >
               {showQR ? "Hide QR Code" : "Show QR Code"}
             </Button>
-            <Button 
-              variant="outline" 
+            <Button
+              variant="outline"
               className="w-full"
               onClick={() => openUpiApp(codAdvanceAmount)}
             >
@@ -138,16 +140,14 @@ export const PaymentMethod = ({
                 Scan to pay ₹{codAdvanceAmount}
               </div>
               <div className="p-2 border rounded">
-                <QRCodeCanvas 
+                <QRCodeCanvas
                   value={generateUpiLink(codAdvanceAmount)}
                   size={200}
                   level="H"
                   includeMargin={true}
                 />
               </div>
-              <div className="mt-2 text-sm text-gray-500">
-                UPI ID: {upiId}
-              </div>
+              <div className="mt-2 text-sm text-gray-500">UPI ID: {upiId}</div>
             </div>
           )}
 
@@ -158,7 +158,8 @@ export const PaymentMethod = ({
               onChange={(e) => setTransactionId(e.target.value)}
             />
             <p className="text-sm text-gray-500">
-              Please enter the transaction ID after paying ₹{codAdvanceAmount} advance
+              Please enter the transaction ID after paying ₹{codAdvanceAmount}{" "}
+              advance
             </p>
           </div>
         </div>
@@ -171,12 +172,11 @@ export const PaymentMethod = ({
         </Link>
       </div>
 
-      <Button 
-        className="w-full" 
+      <Button
+        className="w-full"
         onClick={() => handleCheckout(transactionId)}
         disabled={
-          isLoading || 
-          !transactionId // Require UPI transaction ID for both payment methods
+          isLoading || !transactionId // Require UPI transaction ID for both payment methods
         }
       >
         {isLoading ? "Processing..." : "Place Order"}

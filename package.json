@@ -1,5 +1,5 @@
 {
-  "name": "footex",
+  "name": "MagShoppy",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -76,8 +76,8 @@
     "tailwindcss": "^4.1.16",
     "typescript": "^5.9.3"
   },
-"overrides": {
-  "@types/react": "$@types/react",
-  "@types/react-dom": "$@types/react-dom"
-}
+  "overrides": {
+    "@types/react": "$@types/react",
+    "@types/react-dom": "$@types/react-dom"
+  }
 }
