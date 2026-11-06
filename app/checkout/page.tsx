@@ -27,7 +27,7 @@ const OrderSummary = memo(OrderSummaryBase);
 const PaymentStep = memo(PaymentStepBase);
 
 const COD_ADVANCE_AMOUNT = 300;
-const SITE_ORIGIN = "https://footex.in";
+const SITE_ORIGIN = "https://magshoppy.in";
 const RAZORPAY_SRC = "https://checkout.razorpay.com/v1/checkout.js";
 
 const REQUIRED_FIELDS = [

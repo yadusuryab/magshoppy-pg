@@ -29,7 +29,7 @@ import { PaymentStep } from "@/components/checkout/payment-step";
 
 const COD_ADVANCE_AMOUNT = 300;
 
-const SITE_ORIGIN = "https://footex.in";
+const SITE_ORIGIN = "https://magshoppy.in";
 
 const RAZORPAY_SRC = "https://checkout.razorpay.com/v1/checkout.js";
 
@@ -334,122 +334,122 @@ ${isCod ? `- Advance attempted: ₹${COD_ADVANCE_AMOUNT}\n` : ""}
   };
 
   const handleRazorpayPayment = async () => {
-  setTouched((prev) => {
-    const next = { ...prev };
-    REQUIRED_FIELDS.forEach((field) => {
-      next[field] = true;
-    });
-    return next;
-  });
-
-  if (!isFormValid) return;
-
-  setIsLoading(true);
-  setFormErrors([]);
-
-  const loaded = await loadRazorpay();
-  if (!loaded) {
-    redirectToWhatsAppFallback("Payment gateway is currently unavailable");
-    return;
-  }
-
-  try {
-    const lines: {
-      productId: string;
-      selectedSize: string;
-      isFreeItem: boolean;
-    }[] = [
-      {
-        productId: mainProduct._id,
-        selectedSize: mainProduct.selectedSize,
-        isFreeItem: false,
-      },
-    ];
-    if (mainProduct.buyOneGetOne && freeProduct) {
-      lines.push({
-        productId: freeProduct._id,
-        selectedSize: freeProduct.selectedSize,
-        isFreeItem: true,
+    setTouched((prev) => {
+      const next = { ...prev };
+      REQUIRED_FIELDS.forEach((field) => {
+        next[field] = true;
       });
-    }
-
-    const createRes = await fetch("/api/checkout/create-order", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        lines,
-        customerDetails,
-        shippingMethod,
-        addShoeCleaner: shoeCleanerAddon && addShoeCleaner,
-        freeSocksOffer,
-        expectedDeliveryLabel: activeDelivery.label,
-      }),
+      return next;
     });
-    const createData = await createRes.json();
-    if (!createRes.ok) {
-      throw new Error(createData?.error || "Could not create order");
+
+    if (!isFormValid) return;
+
+    setIsLoading(true);
+    setFormErrors([]);
+
+    const loaded = await loadRazorpay();
+    if (!loaded) {
+      redirectToWhatsAppFallback("Payment gateway is currently unavailable");
+      return;
     }
 
-    const { razorpayOrder, paymentAmount: serverPaymentAmount } = createData;
+    try {
+      const lines: {
+        productId: string;
+        selectedSize: string;
+        isFreeItem: boolean;
+      }[] = [
+        {
+          productId: mainProduct._id,
+          selectedSize: mainProduct.selectedSize,
+          isFreeItem: false,
+        },
+      ];
+      if (mainProduct.buyOneGetOne && freeProduct) {
+        lines.push({
+          productId: freeProduct._id,
+          selectedSize: freeProduct.selectedSize,
+          isFreeItem: true,
+        });
+      }
 
-    const options = {
-      key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
-      amount: razorpayOrder.amount,
-      currency: razorpayOrder.currency,
-      name: site.name || "Footex",
-      description: isCod
-        ? `COD Advance Payment (₹${COD_ADVANCE_AMOUNT})`
-        : "2 Pair Shoes Order",
-      order_id: razorpayOrder.id,
-      prefill: {
-        name: customerDetails.name,
-        contact: customerDetails.contact1,
-      },
-      theme: { color: "#000000" },
-      handler: async (response: any) => {
-        try {
-          const verifyRes = await fetch("/api/checkout/verify", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              razorpay_order_id: response.razorpay_order_id,
-              razorpay_payment_id: response.razorpay_payment_id,
-              razorpay_signature: response.razorpay_signature,
-            }),
-          });
-          const verifyData = await verifyRes.json();
+      const createRes = await fetch("/api/checkout/create-order", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          lines,
+          customerDetails,
+          shippingMethod,
+          addShoeCleaner: shoeCleanerAddon && addShoeCleaner,
+          freeSocksOffer,
+          expectedDeliveryLabel: activeDelivery.label,
+        }),
+      });
+      const createData = await createRes.json();
+      if (!createRes.ok) {
+        throw new Error(createData?.error || "Could not create order");
+      }
 
-          if (!verifyData.success) {
-            redirectToWhatsAppFallback("Payment verification failed");
-            return;
+      const { razorpayOrder, paymentAmount: serverPaymentAmount } = createData;
+
+      const options = {
+        key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
+        amount: razorpayOrder.amount,
+        currency: razorpayOrder.currency,
+        name: site.name || "Footex",
+        description: isCod
+          ? `COD Advance Payment (₹${COD_ADVANCE_AMOUNT})`
+          : "2 Pair Shoes Order",
+        order_id: razorpayOrder.id,
+        prefill: {
+          name: customerDetails.name,
+          contact: customerDetails.contact1,
+        },
+        theme: { color: "#000000" },
+        handler: async (response: any) => {
+          try {
+            const verifyRes = await fetch("/api/checkout/verify", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                razorpay_order_id: response.razorpay_order_id,
+                razorpay_payment_id: response.razorpay_payment_id,
+                razorpay_signature: response.razorpay_signature,
+              }),
+            });
+            const verifyData = await verifyRes.json();
+
+            if (!verifyData.success) {
+              redirectToWhatsAppFallback("Payment verification failed");
+              return;
+            }
+
+            fbEvent(
+              "Purchase",
+              { ...buildPixelPayload(), value: serverPaymentAmount },
+              response.razorpay_payment_id,
+            );
+
+            localStorage.removeItem("cart");
+            router.push(
+              `/order-confirmed?payment_id=${response.razorpay_payment_id}&order_id=${verifyData.orderId}`,
+            );
+          } catch {
+            redirectToWhatsAppFallback("We couldn't confirm your payment");
           }
+        },
+        modal: { ondismiss: () => setIsLoading(false) },
+      };
 
-          fbEvent(
-            "Purchase",
-            { ...buildPixelPayload(), value: serverPaymentAmount },
-            response.razorpay_payment_id,
-          );
-
-          localStorage.removeItem("cart");
-          router.push(
-            `/order-confirmed?payment_id=${response.razorpay_payment_id}&order_id=${verifyData.orderId}`,
-          );
-        } catch {
-          redirectToWhatsAppFallback("We couldn't confirm your payment");
-        }
-      },
-      modal: { ondismiss: () => setIsLoading(false) },
-    };
-
-    const rzp = new window.Razorpay(options);
-    rzp.on("payment.failed", () =>
-      redirectToWhatsAppFallback("Your payment failed"),
-    );
-    rzp.open();
-  } catch (e: any) {
-    redirectToWhatsAppFallback(e?.message || "We couldn't start the payment");
-  }
-};
+      const rzp = new window.Razorpay(options);
+      rzp.on("payment.failed", () =>
+        redirectToWhatsAppFallback("Your payment failed"),
+      );
+      rzp.open();
+    } catch (e: any) {
+      redirectToWhatsAppFallback(e?.message || "We couldn't start the payment");
+    }
+  };
 
   if (!cartItems.length || !mainProduct) {
     return <EmptyCart isInvalid={cartItems.length > 0} />;

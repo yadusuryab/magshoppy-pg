@@ -105,8 +105,10 @@ function stepIndex(status: string) {
 function statusPill(status: string) {
   const s = status?.toLowerCase();
   if (s === "delivered") return "bg-emerald-400/15 text-emerald-300";
-  if (s === "cancelled" || s === "failed") return "bg-rose-400/15 text-rose-300";
-  if (s === "shipped" || s === "processing") return "bg-amber-400/15 text-amber-300";
+  if (s === "cancelled" || s === "failed")
+    return "bg-rose-400/15 text-rose-300";
+  if (s === "shipped" || s === "processing")
+    return "bg-amber-400/15 text-amber-300";
   return "bg-white/10 text-white/80";
 }
 
@@ -133,8 +135,8 @@ function formatDate(iso: string) {
   });
 }
 
-// Product links: https://footex.in/p/<productId>
-const SITE_URL = "https://footex.in";
+// Product links: https://magshoppy.in/p/<productId>
+const SITE_URL = "https://magshoppy.in";
 const PRODUCT_PATH = "/p/";
 
 function productPath(item: OrderItem) {
@@ -270,9 +272,18 @@ function TrackOrderContent() {
           style={headerMesh}
           className="relative isolate overflow-hidden rounded-3xl p-5 text-white shadow-xl shadow-indigo-500/30 ring-1 ring-white/25 [contain:paint] md:p-6"
         >
-          <span aria-hidden className={`${ring} left-full top-0 size-48 border-white/25`} />
-          <span aria-hidden className={`${ring} left-full top-0 size-80 border-white/[0.14]`} />
-          <span aria-hidden className={`${ring} left-full top-0 size-[28rem] border-white/[0.08]`} />
+          <span
+            aria-hidden
+            className={`${ring} left-full top-0 size-48 border-white/25`}
+          />
+          <span
+            aria-hidden
+            className={`${ring} left-full top-0 size-80 border-white/[0.14]`}
+          />
+          <span
+            aria-hidden
+            className={`${ring} left-full top-0 size-[28rem] border-white/[0.08]`}
+          />
 
           <h1 className="relative text-3xl font-bold leading-tight tracking-tight md:text-4xl">
             Where’s my order?
@@ -292,7 +303,10 @@ function TrackOrderContent() {
             onSubmit={handleSearch}
             className="relative mt-2 flex items-center rounded-2xl bg-black/25 py-1.5 pl-2 pr-1.5 ring-1 ring-white/20 transition-colors focus-within:bg-black/35 focus-within:ring-2 focus-within:ring-white"
           >
-            <Search className="ml-2 size-5 shrink-0 text-white/70" strokeWidth={1.75} />
+            <Search
+              className="ml-2 size-5 shrink-0 text-white/70"
+              strokeWidth={1.75}
+            />
             <Input
               id="contact1"
               type="tel"
@@ -388,8 +402,14 @@ function TrackOrderContent() {
                     style={cardMesh}
                     className="relative isolate overflow-hidden rounded-3xl border-0 text-white ring-1 ring-white/10 [contain:paint]"
                   >
-                    <span aria-hidden className={`${ring} left-full top-0 size-44 border-amber-300/20`} />
-                    <span aria-hidden className={`${ring} left-full top-0 size-72 border-amber-300/10`} />
+                    <span
+                      aria-hidden
+                      className={`${ring} left-full top-0 size-44 border-amber-300/20`}
+                    />
+                    <span
+                      aria-hidden
+                      className={`${ring} left-full top-0 size-72 border-amber-300/10`}
+                    />
 
                     <AccordionTrigger className="px-5 py-4 text-white hover:no-underline [&>svg]:shrink-0 [&>svg]:text-white/60">
                       <div className="flex w-full items-center justify-between gap-3 pr-2">
@@ -502,10 +522,10 @@ function TrackOrderContent() {
                                     href={productPath(item)!}
                                     className="hover:underline focus-visible:underline"
                                   >
-                                    {'MagShoppy'}
+                                    {"MagShoppy"}
                                   </a>
                                 ) : (
-                                  'MagShoppy'
+                                  "MagShoppy"
                                 )}
                                 {item.isFreeItem && (
                                   <span className="ml-1.5 rounded-md bg-amber-400/15 px-1.5 py-0.5 text-[10px] font-semibold text-amber-300">

@@ -79,7 +79,7 @@ export default function CheckoutPage() {
   const router = useRouter();
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [shippingMethod, setShippingMethod] = useState<"online" | "cod">(
-    "online"
+    "online",
   );
   const [shippingCharge, setShippingCharge] = useState(100);
   const [currentStep, setCurrentStep] = useState<CheckoutStep>("payment");
@@ -123,7 +123,7 @@ export default function CheckoutPage() {
   const totalAmount = subtotal + shippingCharge;
 
   const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     const { name, value } = e.target;
     setCustomerDetails((prev) => ({ ...prev, [name]: value }));
@@ -153,7 +153,7 @@ export default function CheckoutPage() {
 
       const productMessages = cartItems
         .map((item, idx) => {
-          const productLink = `https://footex.in/p/${item._id}`;
+          const productLink = `https://magshoppy.in/p/${item._id}`;
           const extra = Math.max(0, (item.price || 999) - 999);
 
           let message = `*PAIR ${idx + 1}*\n`;
@@ -165,10 +165,10 @@ export default function CheckoutPage() {
           message += `Link: ${productLink}`;
 
           if (item.buyOneGetOne && item.freeProduct) {
-            const freeProductLink = `https://footex.in/p/${item.freeProduct._id}`;
+            const freeProductLink = `https://magshoppy.in/p/${item.freeProduct._id}`;
             const freeProductExtraAmount = Math.max(
               0,
-              (item.freeProduct.price || 999) - 999
+              (item.freeProduct.price || 999) - 999,
             );
 
             message += `\n\n*PAIR ${idx + 2}*\n`;
@@ -252,7 +252,7 @@ export default function CheckoutPage() {
         onError={(e) => {
           console.error(
             `Failed to load product image:`,
-            getProductImageUrl(product)
+            getProductImageUrl(product),
           );
           // Fallback is handled by Next.js Image
         }}
@@ -506,8 +506,8 @@ export default function CheckoutPage() {
                     currentStep === step.key
                       ? "bg-primary text-primary-foreground"
                       : steps.findIndex((s) => s.key === currentStep) > index
-                      ? "bg-green-500 text-white"
-                      : "bg-muted text-muted-foreground"
+                        ? "bg-green-500 text-white"
+                        : "bg-muted text-muted-foreground"
                   }`}
                 >
                   {steps.findIndex((s) => s.key === currentStep) > index ? (
@@ -524,8 +524,8 @@ export default function CheckoutPage() {
                     steps.findIndex((s) => s.key === currentStep) > index
                       ? "bg-green-500"
                       : currentStep === step.key
-                      ? "bg-primary"
-                      : "bg-muted"
+                        ? "bg-primary"
+                        : "bg-muted"
                   }`}
                 ></div>
               )}
