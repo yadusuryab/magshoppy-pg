@@ -61,7 +61,7 @@ export function Hero() {
         <div className="pointer-events-none absolute -right-24 z-50  -rotate-[30deg] -top-10 w-[360px] transition-transform duration-700 ease-out group-hover:scale-105">
           <div className="hero-enter">
             <div className="hero-float will-change-transform">
-              <Image
+              {/* <Image
                 src="/sh3.avif"
                 alt="Premium sneaker"
                 width={400}
@@ -70,7 +70,7 @@ export function Hero() {
                 priority
                 fetchPriority="high"
                 className="h-auto w-full drop-shadow-[0_25px_30px_rgba(0,0,0,0.5)]"
-              />
+              /> */}
             </div>
           </div>
         </div>
