@@ -108,19 +108,9 @@ export async function priceCart(
   };
 }
 
-// Date key in your business timezone (not server time, which is often UTC)
-function dayKey(tz = "Asia/Kolkata") {
-  // en-CA formats as YYYY-MM-DD
-  return new Intl.DateTimeFormat("en-CA", { timeZone: tz })
-    .format(new Date())
-    .replaceAll("-", "");
-}
-
-// Atomically increments and returns the new count for that day
-type NextSeq = (dayKey: string) => Promise<number>;
-
-export async function generateOrderId(nextSeq: NextSeq) {
-  const ymd = dayKey();
-  const seq = await nextSeq(ymd);
-  return `MAG-${ymd}-${String(seq).padStart(4, "0")}`; // MAG-20261107-0001
+export function generateOrderId() {
+  const d = new Date();
+  const ymd = `${d.getFullYear()}${String(d.getMonth() + 1).padStart(2, "0")}${String(d.getDate()).padStart(2, "0")}`;
+  const rand = Math.random().toString(36).slice(2, 7).toUpperCase();
+  return `MAG-${ymd}-${rand}`;
 }
